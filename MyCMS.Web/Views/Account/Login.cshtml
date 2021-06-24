@@ -1,0 +1,66 @@
+﻿@using MyCMS.ViewModels.Account
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>ورود به سایت</h2>
+<hr />
+
+<form class="form-horizontal" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @if (ViewBag.error!=null)
+    {
+        <div>
+            <p class="text-danger">@ViewBag.error</p>
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="Username" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <span class="text-danger" asp-validation-for="Username"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+        </div>
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" asp-for="RememberMe"></label>
+        <div class="col-md-10">
+            <input asp-for="RememberMe" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+            <button class="btn btn-success">ورود به سایت</button>
+            <a href="/Home/Index" class="btn btn-danger">بازگشت به صفحه اصلی</a>
+        </div>
+    </div>
+</form>
+<br />
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h5>ورود با حساب های دیگر</h5>
+        <hr />
+        @if (!Model.ExternalLogins.Any())
+        {
+            <div>
+                <p>در حال حاضر این امکان وجود ندارد.</p>
+            </div>
+        }
+        else
+        {
+            <form method="post" asp-area="" asp-action="ExternalLogin"  asp-route-returnUrl="@Model.ReturnUrl">
+                @foreach (var item in Model.ExternalLogins)
+                {
+                    <button class="btn btn-primary" name="provider" value="@item.Name">@item.DisplayName</button>
+                }
+            </form>
+        }
+    </div>
+</div>

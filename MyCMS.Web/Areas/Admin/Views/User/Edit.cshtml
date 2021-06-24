@@ -1,0 +1,57 @@
+﻿@using MyCMS.ViewModels.Users
+@model EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>ویرایش کاربر</h1>
+<hr />
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="UserId" />
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Username:</label>
+        <div class="col-md-10">
+            <input asp-for="Username" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Email:</label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Roles:</label>
+        </div>
+        <div class="col-md-10">
+            @for (int i = 0; i < Model.Roles.Count(); i++)
+            {
+                <div style="display:inline-block" class="form-group row">
+                    <label class="col-md-2 control-label">
+                        <input type="checkbox" asp-for="@Model.Roles[i].IsSelected" /> @Model.Roles[i].Name
+                        <input type="hidden" asp-for="@Model.Roles[i].Name" />
+                    </label>
+                </div>
+            }
+            @*@foreach (var role in Model.Roles)
+                {
+                    <div style="display:inline-block" class="form-group row">
+                        <label class="col-md-2 col-form-label">
+                            <input type="checkbox" name="IsSelected" /> @role.Name
+                            <input name="Name" type="hidden" />
+                        </label>
+                    </div>
+                }*@
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-md-10">
+            <button id="btn" class="btn btn-success">Edit</button>
+            <a asp-action="Index" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+</form>
+

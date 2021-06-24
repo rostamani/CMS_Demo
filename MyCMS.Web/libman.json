@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "jquery-validate-unobtrusive-hooks@1.0.0",
+      "destination": "wwwroot/jquery-validate-unobtrusive-hooks/",
+      "files": [
+        "src/jquery.validate.hooks.js"
+      ]
+    },
+    {
+      "library": "jquery-validate@1.19.2",
+      "destination": "wwwroot/",
+      "files": [
+        "jquery.validate.min.js"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/"
+    },
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/",
+      "files": [
+        "js/select2.min.js",
+        "css/select2.min.css"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+﻿@model MyCMS.DomainClasses.Page.Page
+<section class="single-news border-radius">
+    <header><h2> @Model.PageTitle </h2> <span> <i class="fa fa-calendar"></i>  انتشار : @Model.CreatedDate.ConvertToPersianDate()</span></header>
+    <article>
+        <p>@Model.ShortDescription</p>
+        @if (Model.ImageName != null)
+        {
+            <div>
+                <img src="/Images/@Model.ImageName" alt="@Model.PageTitle" class="thumbnail img-responsive" />
+            </div>
+        }
+        @*@if (Model.ImageName!=null)
+        {
+            <div class="row col-md-12">
+                <div class="col-md-8">
+                    <img  src="/Images/@Model.ImageName" alt="@Model.ShortDescription" class="thumbnail"/>
+                </div>
+            </div>
+
+        }*@
+        <p>@Html.Raw(Model.PageText)</p>
+    </article>
+</section>
+<div class="keywords border-radius">
+    @if (Model.PageTags != null)
+    {
+        @foreach (var item in Model.PageTags.Split('-'))
+        {
+            <a href="/News/Search/@item"> @item </a>
+        }
+    }
+
+
+    @*<a href=""> کلمات کلیدی </a>
+        <a href=""> کلمات کلیدی </a>
+        <a href=""> کلمات کلیدی </a>
+        <a href=""> کلمات کلیدی </a>
+        <a href=""> کلمات کلیدی </a>*@
+</div>
+

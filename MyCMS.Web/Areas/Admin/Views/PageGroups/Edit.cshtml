@@ -1,0 +1,41 @@
+﻿@model PageGroup
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>ویرایش گروه خبری</h2>
+    </div>
+    <div class="col-md-6">
+        <p class="pull-left">
+            <a href="/admin/pagegroups/index" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+        </p>
+    </div>
+</div>
+<hr />
+<form method="post" class="form-horizontal">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="@Model.PageGroupId" />
+        <label class="control-label col-md-2">عنوان گروه خبری</label>
+        <div class="col-md-10">
+            <input class="form-control" asp-for="@Model.PageGroupTitle" value="@Model.PageGroupTitle" />
+            <span asp-validation-for="@Model.PageGroupTitle" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+            <button class="btn btn-primary">ویرایش</button>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script src="/jquery.js"></script>
+    <script src="/jquery.validate.min.js"></script>
+    <script src="/jquery.validate.unobtrusive.js"></script>
+}

@@ -1,0 +1,91 @@
+﻿@using MyCMS.ViewModels.Users
+@model List<IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>لیست کاربران</h2>
+<hr />
+@if (!Model.Any())
+{
+    <h3>
+        هیچ کاربری یافت نشد.
+    </h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>نام کاربری</th>
+                <th>ایمیل</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Username</td>
+                    <td>@item.Email</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="deleteFunction2('@item.UserId')">حذف</button>
+                        <a href="/admin/users/edit/@item.UserId" class="btn btn-warning">ویرایش</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<script src="/jquery.js"></script>
+<script src="/sweetalert.min.js"></script>
+<script src="/sweetalert2.min.js"></script>
+<script>
+    function deleteFunction2(UserId) {
+        
+        Swal.fire({
+            title: 'حذف کاربر',
+            text: "آیا از حذف این کاربر اطمینان دارید؟",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'حذف',
+            cancelButtonText: 'بازگشت'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax('/admin/users/delete/' + UserId).done(function (result) {
+                    if (result==true) {
+                    Swal.fire(
+                    {
+                        title: 'حذف موفقیت آمیز',
+                        text: "با موفقیت حذف شذ",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'بازگشت به صفحه اصلی',
+                    }
+                    ).then((x) => {
+                        //window.location = "/admin/users";
+                        window.location.reload();
+                })
+            }
+        });
+                    }
+                });
+        //        Swal.fire(
+        //            {
+        //                title: 'حذف موفقیت آمیز',
+        //                text: "با موفقیت حذف شذ",
+        //                icon: 'success',
+        //                showCancelButton: false,
+        //                confirmButtonColor: '#3085d6',
+        //                confirmButtonText: 'بازگشت به صفحه اصلی',
+        //            }
+        //        ).then((x) => {
+        //            window.location = "/admin/users/delete?UserId=" + UserId;
+        //        })
+        //    }
+        //});
+    }
+</script>

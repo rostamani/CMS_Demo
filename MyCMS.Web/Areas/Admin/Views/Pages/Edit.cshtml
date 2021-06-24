@@ -1,0 +1,107 @@
+﻿@model Page
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>ویرایش خبر</h2>
+    </div>
+    <div class="col-md-6">
+        <p class="pull-left">
+            <a href="/admin/pages/index" class="btn btn-primary">بازگشت به صفحه اخبار</a>
+        </p>
+    </div>
+</div>
+<hr />
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="PageId" />
+    <input type="hidden" asp-for="PageVisit" />
+    <input type="hidden" asp-for="ImageName" />
+    <input type="hidden" asp-for="CreatedDate" />
+    <div class="form-group">
+        <label asp-for="PageGroup" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <select asp-for="PageGroupId" asp-items="@ViewBag.PageGroups" class="form-control" id="pageGroupsContainer"></select>
+            <span asp-validation-for="PageTitle"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PageTitle" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="PageTitle" class="form-control" />
+            <span asp-validation-for="PageTitle"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+
+            <textarea asp-for="ShortDescription" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PageText" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <div>
+                <textarea id="content" asp-for="PageText"></textarea>
+            </div>
+            <span asp-validation-for="PageText" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PageTags" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="PageTags" class="form-control" />
+            <span asp-validation-for="PageTags" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="checkbox col-md-offset-2">
+            <label asp-for="ShowInSlider">
+                <input asp-for="ShowInSlider" /> @Html.DisplayNameFor(m => m.ShowInSlider)
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageName" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input type="file" name="imageUpload" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-md-10 col-md-offset-2">
+            <button class="btn btn-primary">ذخیره</button>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script src="/jquery.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/summernote.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/jquery.validate.min.js"></script>
+    <script src="/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#content').summernote({
+                height: 400
+            });
+        });
+    </script>
+    @*<script>
+            $(document).ready(function () {
+                $('#pageGroupsContainer').select2();
+            });
+        </script>*@
+}
+
+@section styles{
+    <link href="/css/select2.min.css" rel="stylesheet" />
+    <link href="/summernote.min.css" rel="stylesheet" />
+}

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MyCMS.DomainClasses.Page.Page>
+
+
+
+<div class="news-slider border-radius">
+    <div id="slider-one" class="owl-carousel">
+        @foreach (var item in Model)
+        {
+            <div class="item">
+                <img src="/Images/@item.ImageName">
+                <div class="left-side">
+                    <h2> <a href="/news/@item.PageId">@item.PageTitle</a> </h2>
+                    <p>@item.ShortDescription</p>
+                    <span> <i class="fa fa-calendar"></i> انتشار : @item.CreatedDate.ConvertToPersianDate()</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </div>
+    <a href="" class="news-archive"> <i class="icons icon-doc-1"></i> آرشیو کامل خبرها </a>
+</div>

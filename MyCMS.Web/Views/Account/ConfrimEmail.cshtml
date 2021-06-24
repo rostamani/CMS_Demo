@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "ConfrimEmail";
+}
+
+<h2>تایید ایمیل</h2>
+<hr />
+
+@if (ViewBag.SuccessfulConfirm)
+{
+    <div class="alert alert-success">
+        <p>
+            ایمیل شما با موفقیت فعال شد.
+        </p>
+    </div>
+
+}
+else
+{
+    <div class="alert alert-danger">
+        <p>
+            هنگام فعالسازی ایمیل با مشکلی مواجه گشتیم.
+        </p>
+    </div>
+}

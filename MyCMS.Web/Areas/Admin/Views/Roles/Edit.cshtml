@@ -1,0 +1,29 @@
+﻿@using MyCMS.ViewModels.Roles
+@model RolesViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>ویرایش دسترسی</h2>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form  class="form-horizontal" method="post">
+            <input type="hidden" asp-for="RoleId"/>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label col-md-2" asp-for="RoleTitle"></label>
+                <div class="col-md-10">
+                    <input asp-for="RoleTitle" class="form-control" />
+                    <span asp-validation-for="RoleTitle"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button class="btn btn-success">ویرایش</button>
+                    <a asp-action="Index" class="btn btn-primary">بازگشت</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

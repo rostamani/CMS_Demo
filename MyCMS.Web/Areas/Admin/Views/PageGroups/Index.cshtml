@@ -1,0 +1,116 @@
+﻿@model List<PageGroup>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>گروه های خبری</h2>
+<hr />
+<p>
+    <a class="btn btn-primary" href="/admin/pagegroups/create">ایجاد گروه خبری</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>عنوان گروه</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="pageGroupsContainer">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PageGroupTitle</td>
+                <td>
+                    @*<a onclick="deleteFunction(@item.PageGroupId)" href="/admin/pagegroups/delete/@item.PageGroupId" class="btn btn-danger">حذف</a>*@
+                    <button class="btn btn-danger" onclick="deleteFunction2(@item.PageGroupId)">حذف 2</button>
+                    <a href="/admin/pagegroups/edit/@item.PageGroupId" class="btn btn-warning">ویرایش</a>
+                    <a href="/admin/pagegroups/details/@item.PageGroupId" class="btn btn-info">جزییات</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script src="/jquery.min.js"></script>
+        @*<script>
+            $(document).ready(function () {
+                $.ajax('/admin/PageGroups/getPageGroups').done(function (result) {
+
+                    for (var i = 0; i < result.length; i++) {
+                        var name = result[i].pageGroupTitle;
+
+                        $('#pageGroupsContainer').append('<tr>'+'<td>'+name+'</td>'+'</tr>');
+                    }
+                });
+            });
+        </script>*@
+    <script src="/jquery.js"></script>
+    <script src="/sweetalert.min.js"></script>
+    <script src="/sweetalert2.min.js"></script>
+    <script>
+        //function deleteFunction(id) {
+        //    swal.fire({
+        //        title: "حذف گروه خبری",
+        //        text: "آیا از حذف این گروه اطمینان دارید؟",
+        //        icon: "warning",
+        //        buttons: ["لغو", "حذف"],
+        //        dangerMode: true,
+        //    }).then((willDelete) => {
+        //        if (willDelete) {
+        //            swal({
+        //                title: "حذف موفقیت آمیز",
+        //                text: "با موفقیت حذف شذ",
+        //                icon: "success",
+        //                buttons: "بازگشت به صفحه اصلی"
+        //            }).then((x) => {
+        //                if (x) {
+        //                    window.location = "/admin/pageGroups/delete/" + id;
+        //                }
+        //            })
+        //        }
+        //        else {
+
+
+        //        }
+        //    });
+        //}
+
+        function deleteFunction2(id) {
+            Swal.fire({
+                title: 'حذف گروه خبری',
+                text: "آیا از حذف این گروه اطمینان دارید؟",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'حذف',
+                cancelButtonText: 'بازگشت'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax('/admin/pageGroups/delete/' + id).done(function (result) {
+                        console.log(result);
+                        if (result ==true) {
+                            
+                            Swal.fire(
+                                {
+                                    title: 'حذف موفقیت آمیز',
+                                    text: "با موفقیت حذف شذ",
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'بازگشت به صفحه اصلی',
+                                }
+                            ).then((x) => {
+                                //window.location = "/admin/pageGroups/index";
+                                window.location.reload();
+                            });
+                        }
+                    });
+                    
+                }
+            });
+        }
+
+    </script>
+}

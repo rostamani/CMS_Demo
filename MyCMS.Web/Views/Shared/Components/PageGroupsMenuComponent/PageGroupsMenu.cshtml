@@ -1,0 +1,17 @@
+﻿@model IEnumerable<MyCMS.ViewModels.PageGroups.PageGroupsMenuVM>
+<section class="category-section border-radius">
+    <header><i class="fa fa-folder-open-o"></i> <h3> دسته بندی ها </h3></header>
+    <ul>
+        @foreach (var item in Model)
+        {
+        <li><a href="/group/@item.PageGroupId"> @item.PageGroupTitle <span>@item.PagesCount</span></a></li>
+        }
+        
+        @*<li><a href=""> خبر اقتصادی  <span>15</span></a></li>
+        <li><a href=""> خبر اجتماعی  <span>20</span></a></li>
+        <li><a href=""> خبر سایسی  <span>10</span></a></li>
+        <li><a href=""> خبر همینطوری  <span>15</span></a></li>
+        <li><a href=""> خبر سایسی  <span>20</span></a></li>
+        <li><a href=""> خبر سایسی  <span>10</span></a></li>*@
+    </ul>
+</section>

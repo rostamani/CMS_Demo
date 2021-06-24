@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> _signinManager
+@inject UserManager<IdentityUser> _userManager
+@{
+    IdentityUser user = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        user = await _userManager.FindByNameAsync(User.Identity.Name.ToString());
+    }
+
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <section class="category-section border-radius">
+
+        <header><i class="fa fa-folder-open-o"></i> <h3>@User.Identity.Name عزیز خوش آمدید</h3></header>
+        <ul>
+            @if (user != null && await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                <li><a href="/admin/pagegroups">گروه ها</a></li>
+                <li><a href="/admin/pages">خبرها</a></li>
+                if (await _userManager.IsInRoleAsync(user, "Owner"))
+                {
+                    <li><a href="/admin/users">اعضای سایت</a></li>
+                    <li><a href="/admin/roles">دسترسی ها</a></li>
+                }
+                
+
+            }
+            <li>
+                <form action="/account/logout" method="post">                   
+                    <input type="submit"  value="خروج از حساب کاربری"/>
+                </form>
+            </li>
+        </ul>
+    </section>
+}
+
+else
+{
+    <section class="category-section border-radius">
+
+        <header><i class="fa fa-folder-open-o"></i> <h3>کاربر میمهمان خوش آمدید</h3></header>
+        <ul>
+            <li><a href="/account/login">ورود به سایت</a></li>
+            <li><a href="/account/register">عضویت</a></li>
+
+        </ul>
+    </section>
+}

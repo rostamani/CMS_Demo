@@ -1,0 +1,44 @@
+﻿@using MyCMS.ViewModels.Roles
+@model List<RolesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>لیست دسترسی ها</h2>
+<hr />
+<p>
+    <a class="btn btn-primary" href="/admin/roles/create">ایجاد دسترسی جدید</a>
+</p>
+
+@if (!Model.Any())
+{
+    <h3>
+        تا کنون هیچ گونه دسترسی ایجاد نشده است.
+    </h3>
+}
+else
+{
+    <form method="post" action="Delete">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>عنوان دسترسی</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.RoleTitle</td>
+                        <td>
+                            <button name="id" value="@item.RoleId" class="btn btn-danger">حذف</button>
+                            <a href="/admin/roles/edit/@item.RoleId" class="btn btn-warning">ویرایش</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+

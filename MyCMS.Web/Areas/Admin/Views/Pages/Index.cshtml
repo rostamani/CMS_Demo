@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Page>
+@using MyCMS.Utilities.Convertors
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2> خبرها</h2>
+<hr />
+<p>
+    <a class="btn btn-primary" href="/admin/pages/create">ارسال خبر جدید</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.ImageName)</th>
+            @*<th>@Html.DisplayNameFor(m => m.PageTitle)</th>
+            <th>@Html.DisplayNameFor(m => m.ShortDescription)</th>*@
+            <th>@Html.DisplayNameFor(m => m.PageText)</th>
+            <th>@Html.DisplayNameFor(m => m.PageVisit)</th>
+            <th>گروه خبری</th>
+            <th>@Html.DisplayNameFor(m => m.CreatedDate)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.ImageName != null)
+                    {
+                        <img src="/Images/@item.ImageName" class="thumbnail" style="max-width:100px" />
+                    }
+                </td>
+                <td><a href="/news/@item.PageId">@item.PageTitle</a></td>
+                @*<td>@item.ShortDescription</td>
+                <td>@item.PageText</td>*@
+                <td>@item.PageVisit</td>
+
+                <td>@item.PageGroup.PageGroupTitle</td>
+                <td>@item.CreatedDate.ConvertToPersianDate()</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" onclick="deleteFunction2(@item.PageId)">حذف 2</button>
+                    <a href="/admin/pages/edit/@item.PageId" class="btn btn-sm btn-warning">ویرایش</a>
+                    <a href="/admin/pages/details/@item.PageId" class="btn btn-sm btn-info">جزییات</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script src="/jquery.min.js"></script>
+    @*<script>
+            $(document).ready(function () {
+                $.ajax('/admin/PageGroups/getPageGroups').done(function (result) {
+
+                    for (var i = 0; i < result.length; i++) {
+                        var name = result[i].pageGroupTitle;
+
+                        $('#pageGroupsContainer').append('<tr>'+'<td>'+name+'</td>'+'</tr>');
+                    }
+                });
+            });
+        </script>*@
+    <script src="/jquery.js"></script>
+    <script src="/sweetalert.min.js"></script>
+    <script src="/sweetalert2.min.js"></script>
+    <script>
+        function deleteFunction(id) {
+            swal.fire({
+                title: "حذف خبر",
+                text: "آیا از حذف این خبر اطمینان دارید؟",
+                icon: "warning",
+                buttons: ["لغو", "حذف"],
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax('/admin/pages/delete/'+id).done(function (result) {
+                        if (result == 'true') {
+                            swal({
+                                title: "حذف موفقیت آمیز",
+                                text: "با موفقیت حذف شذ",
+                                icon: "success",
+                                buttons: "بازگشت به صفحه اصلی"
+                            }).then((x) => {
+                                if (x) {
+                                    //window.location = "/admin/pages";
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                    });                   
+                }
+                else {
+
+
+                }
+            });
+        }
+
+        function deleteFunction2(id) {
+            Swal.fire({
+                title: 'حذف خبر',
+                text: "آیا از حذف این خبر اطمینان دارید؟",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'حذف',
+                cancelButtonText: 'بازگشت'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax('/admin/pages/delete/' + id).done(function (result) {
+                        if (result == true) {
+                            Swal.fire(
+                                {
+                                    title: 'حذف موفقیت آمیز',
+                                    text: "با موفقیت حذف شذ",
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'بازگشت به صفحه اصلی',
+                                }
+                            ).then((x) => {
+                                window.location = "/admin/pages";
+                            });
+                        }
+                    });
+                    
+                }
+            });
+        }
+
+    </script>
+}

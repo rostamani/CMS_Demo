@@ -1,0 +1,20 @@
+﻿@inject MyCMS.Services.Repository.IRepository.IPageGroupRepository _groupRepository
+
+
+
+<ul>
+    <li><a href="/home/index"> صفحه اصلی </a></li>
+    <li>
+        <span>گروه های خبری</span>
+        <ul>
+            @foreach (var item in await _groupRepository.GetAllPageGroups())
+            {
+            <li><a href="/group/@item.PageGroupId">@item.PageGroupTitle</a></li>
+            }
+            
+            @*<li><a href="">اخبار فرهنگی</a></li>
+            <li><a href="">اخبار اقتصادی</a></li>
+            <li><a href="">اخبار اجتماعی</a></li>*@
+        </ul>
+    </li>
+</ul>

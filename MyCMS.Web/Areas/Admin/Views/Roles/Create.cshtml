@@ -1,0 +1,28 @@
+﻿@using MyCMS.ViewModels.Roles
+@model RolesViewModel
+@{
+    ViewData["Title"] = "CreateRole";
+}
+
+<h2>افزودن دسترسی جدید</h2>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label col-md-2" asp-for="RoleTitle"></label>
+                <div class="col-md-10">
+                    <input asp-for="RoleTitle" class="form-control" />
+                    <span asp-validation-for="RoleTitle"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <button class="btn btn-success">افزودن</button>
+                    <a href="admin/roles/index" class="btn btn-primary">بازگشت</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
